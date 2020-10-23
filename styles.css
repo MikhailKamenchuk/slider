@@ -97,9 +97,9 @@ h6 {
     flex: 1;
     min-width: 100%;
     margin-top: 32px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    display: none;
+    /* display: none; */
 }
 .preview__item {
     position: absolute;
@@ -137,11 +137,11 @@ h6 {
     left: 50%;
     z-index: 1;
     transform: translate(287px);
-    -webkit-animation-name: fademergingFromBellow;
+    -webkit-animation-name: emergingFromBellow;
     -webkit-animation-duration: 1.5s;
     -webkit-animation-delay: 0.5s;
     -webkit-animation-fill-mode: forwards;
-    animation-name: fademergingFromBellow;
+    animation-name: emergingFromBellow;
     animation-duration: 1.5s;
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
@@ -162,7 +162,7 @@ h6 {
     position: relative;
     /* display: none; */
     height: 300px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
 }
 
@@ -173,7 +173,15 @@ h6 {
 
 .model__item {
     text-align: center;
+    opacity: 0;
+    animation-name: emerging;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: emerging;
+    -webkit-animation-duration: 0.2s;
+    -webkit-animation-fill-mode: forwards;
 }
+
 .model__item img {
     object-fit: cover;
     width: 85%;
@@ -211,7 +219,7 @@ h6 {
 
 .model-dots {
     text-align: center;
-    margin-top: auto;
+    margin-top: -20px;
 }
 
 .model-dots__item {
@@ -240,12 +248,21 @@ h6 {
     border: 2px solid rgb(255, 255, 255);
 }
 
-/* .slider .item {
-    -webkit-animation-name: emerging;
-    -webkit-animation-duration: 1.5s;
-    animation-name: emerging;
-    animation-duration: 1.5s;
-} */
+.model__name{
+    color: rgb(0, 42, 58);
+    text-align: center;
+    font-size: 22px;
+}
+
+.price.model__price{
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 50px;
+    text-align: right;
+}
+.price.model__price .price__description{
+    margin-right: 40px;
+}
 
 @-webkit-keyframes emerging {
     from {
@@ -274,7 +291,7 @@ h6 {
         transform: translateY(0);
     }
 }
-@keyframes fademergingFromBellow {
+@keyframes emergingFromBellow {
     from {
         opacity: 0;
         transform: translateY(287px);
@@ -286,9 +303,9 @@ h6 {
 }
 .shadow {
     width: 150px;
-    -webkit-box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 1);
+    box-shadow: 0px -38px 29px 3px rgba(0, 0, 0, 1);
     opacity: 0;
     -webkit-animation-name: emerging;
     -webkit-animation-duration: 1.5s;
@@ -356,6 +373,8 @@ h6 {
     font-weight: 600;
     cursor: pointer;
     text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
 }
 
 .logo img {

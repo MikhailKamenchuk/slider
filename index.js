@@ -19,8 +19,10 @@ const assets = [
     }
 ]
 
-const sliderContainerElem = document.querySelector('.model');
+const modelContainerElem = document.querySelector('.model');
 const dotsContainerElem = document.querySelector(".model-dots");
+const modelPriceContainerElem = document.querySelector(".price__quantity");
+const modelNameContainerElem = document.querySelector(".model__name");
 
 function createModelDot(name, color) {
     const modelDotElem = document.createElement('span');
@@ -39,8 +41,36 @@ function createModelItem(name, color) {
     modelImage.alt = `${name}_${color}`
     modelItem.append(modelImage);
 
+    modelItem.addEventListener('touchstart', handleTouchStart, false);
+    modelItem.addEventListener('touchmove', handleTouchMove, false);
+
     return modelItem
 }
+
+let xDown = null;
+let yDown = null;
+
+function handleTouchStart(evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+};
+
+function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+        return;
+    }
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        xDiff > 0 ? plusSlide() : minusSlide();
+    }
+
+    xDown = null;
+    yDown = null;
+};
 
 const dots = assets.map(asset => {
     return asset.colors.map(color => createModelDot(asset.name, color))
@@ -50,8 +80,13 @@ const slides = assets.map(asset => {
     return asset.colors.map(color => createModelItem(asset.name, color))
 })
 
-let slideIndex = 1;
+let currentSubmodel = 1;
 let currentModel = 0;
+
+function createModelPrice(price) {
+    const separatePrice = price.split(',')
+    return `${separatePrice[0]}<sup class="price__coins">${separatePrice[1]}</sup>&nbsp $`
+}
 
 function showDifferentModel(n) {
     if (n > slides.length - 1) {
@@ -62,43 +97,42 @@ function showDifferentModel(n) {
         currentModel = slides.length - 1
     }
 
-    slideIndex = 1;
+    currentSubmodel = 1;
 
-    sliderContainerElem.innerHTML = '';
+    modelContainerElem.innerHTML = '';
     dotsContainerElem.innerHTML = '';
+    modelNameContainerElem.innerHTML = `fitbit ${assets[currentModel].name}`;
+    modelPriceContainerElem.innerHTML = createModelPrice(assets[currentModel].price);
 
-    showSlides(slideIndex, slides[currentModel], dots[currentModel] );
+    showSubmodels(currentSubmodel, slides[currentModel], dots[currentModel]);
 
-    sliderContainerElem.append(...slides[currentModel]);
+    modelContainerElem.append(...slides[currentModel]);
     dotsContainerElem.append(...dots[currentModel]);
 }
 
-
-
-function currentSlide(n) {
-    showSlides(slideIndex = n, slides[currentModel], dots[currentModel]);
+function setCurrentSubmodel(n) {
+    showSubmodels(currentSubmodel = n, slides[currentModel], dots[currentModel]);
 }
 
-function showSlides(n, model, dots) {
+function showSubmodels(n, model, dots) {
     if (n > model.length) {
-        slideIndex = 1
+        currentSubmodel = 1
     }
 
     if (n < 1) {
-        slideIndex = slides.length
+        currentSubmodel = slides.length
     }
 
     [...model].forEach(slide => slide.style.display = "none");
     [...dots].forEach((dot, index) => {
-        dot.addEventListener('click', () => currentSlide(index + 1))
+        dot.addEventListener('click', () => setCurrentSubmodel(index + 1))
         dot.className = dot.className.replace(" active", "")
     });
-    model[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
+    model[currentSubmodel - 1].style.display = "block";
+    dots[currentSubmodel - 1].className += " active";
 }
 
 showDifferentModel(currentModel)
-
 
 function plusSlide() {
     showDifferentModel(currentModel += 1);
@@ -112,3 +146,16 @@ const prevBtnElem = document.querySelector('.prev');
 const nextBtnElem = document.querySelector('.next');
 prevBtnElem.addEventListener('click', minusSlide);
 nextBtnElem.addEventListener('click', plusSlide);
+
+const previewElem = document.querySelector('.preview');
+const sliderElem = document.querySelector('.slider');
+
+const loadPage = async () => {
+    previewElem.style.display = 'flex';
+    sliderElem.style.display = 'none';
+    await new Promise((resolve) => setTimeout(() => resolve(), 3500))
+    previewElem.style.display = 'none';
+    sliderElem.style.display = 'flex';
+}
+
+document.addEventListener("DOMContentLoaded", loadPage)
