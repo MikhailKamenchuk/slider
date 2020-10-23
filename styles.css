@@ -18,7 +18,7 @@ h6 {
     margin: 0;
     padding: 0;
 }
-.not-available-page{
+.not-available-page {
     width: 100vh;
     height: 100vh;
     display: none;
@@ -28,21 +28,21 @@ h6 {
     background-repeat: no-repeat;
     background-position: center;
 }
-.not-available-page__text{
+.not-available-page__text {
     margin-top: 65%;
     font-size: 20px;
     color: darkgray;
 }
-            
-.loading-page{
-    max-width: 100vh;
-    height: 100vh;
+
+.loading-page {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(228, 202, 227);
 }
-.loading-page .arrow{
+.loading-page .arrow {
     display: block;
     margin: auto;
     width: 50px;
@@ -109,11 +109,11 @@ h6 {
     color: rgb(0, 42, 58);
     opacity: 0;
     -webkit-animation-name: emerging;
-    -webkit-animation-duration: 1.5s;
-    -webkit-animation-delay: 0.5s;
+    -webkit-animation-duration: 2.5s;
+    -webkit-animation-delay: 1s;
     -webkit-animation-fill-mode: forwards;
     animation-name: emerging;
-    animation-duration: 1.5s;
+    animation-duration: 2.5s;
     animation-delay: 1s;
     animation-fill-mode: forwards;
 }
@@ -286,16 +286,6 @@ h6 {
     font-size: 22px;
 }
 
-.price.model__price {
-    margin: 0;
-    margin-top: 10px;
-    margin-right: 50px;
-    text-align: right;
-}
-.price.model__price .price__description {
-    margin-right: 40px;
-}
-
 @-webkit-keyframes emerging {
     from {
         opacity: 0;
@@ -319,7 +309,6 @@ h6 {
     }
     to {
         transform: rotate(360deg);
-
     }
 }
 @keyframes rotate {
@@ -328,7 +317,6 @@ h6 {
     }
     to {
         transform: rotate(360deg);
-
     }
 }
 @keyframes emergingFromAbove {
@@ -387,6 +375,22 @@ h6 {
     animation-delay: 1s;
     animation-fill-mode: forwards;
 }
+.price.model__price {
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 50px;
+    text-align: right;
+    -webkit-animation-name: emerging;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: emerging;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.price.model__price .price__description {
+    margin-right: 40px;
+}
+
 .price__description {
     font-weight: 500;
 }
@@ -435,7 +439,7 @@ h6 {
 }
 
 @media screen and (max-height: 620px) {
-    .content__title{
+    .content__title {
         margin-top: 0;
     }
     .model__item img {
@@ -443,7 +447,7 @@ h6 {
     }
 }
 @media screen and (min-height: 800px) {
-    .content__title{
+    .content__title {
         margin-top: 0;
     }
     .model__item img {
@@ -451,12 +455,11 @@ h6 {
     }
 }
 
-
 @media screen and (orientation: landscape) {
-    .not-available-page{
+    .not-available-page {
         display: flex;
     }
-    .page{
-        display: none
+    .page {
+        display: none;
     }
 }
