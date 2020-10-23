@@ -18,14 +18,17 @@ const assets = [
         price: '179,95'
     }
 ]
-const prevBtnElem = document.querySelector('.prev');
-const nextBtnElem = document.querySelector('.next');
-prevBtnElem.addEventListener('click', minusSlide);
-nextBtnElem.addEventListener('click', plusSlide);
 
 const sliderContainerElem = document.querySelector('.model');
-const dots = document.getElementsByClassName("model-dots__item");
+const dotsContainerElem = document.querySelector(".model-dots");
 
+function createModelDot(name, color) {
+    const modelDotElem = document.createElement('span');
+    modelDotElem.classList.add('model-dots__item');
+    modelDotElem.style.backgroundImage = `url(images/P_${name}_${color}_off.png)`;
+
+    return modelDotElem
+}
 
 function createModelItem(name, color) {
     const modelItem = document.createElement('div');
@@ -39,13 +42,9 @@ function createModelItem(name, color) {
     return modelItem
 }
 
-
-function createModelDot(model) {
-    const modelDotElem = document.createElement('span');
-    modelDotElem.classList.add('model-dots__item');
-    modelDotElem.style.backgroundImage = `url(images/P_${model.name}_${model.colors[0]}_off.png)`
-    return modelDotElem
-}
+const dots = assets.map(asset => {
+    return asset.colors.map(color => createModelDot(asset.name, color))
+})
 
 const slides = assets.map(asset => {
     return asset.colors.map(color => createModelItem(asset.name, color))
@@ -55,7 +54,6 @@ let slideIndex = 1;
 let currentModel = 0;
 
 function showDifferentModel(n) {
-    // debugger
     if (n > slides.length - 1) {
         currentModel = 0
     }
@@ -63,22 +61,25 @@ function showDifferentModel(n) {
     if (n < 0) {
         currentModel = slides.length - 1
     }
+
     slideIndex = 1;
+
     sliderContainerElem.innerHTML = '';
-    showSlides(slideIndex, slides[currentModel] );
+    dotsContainerElem.innerHTML = '';
+
+    showSlides(slideIndex, slides[currentModel], dots[currentModel] );
+
     sliderContainerElem.append(...slides[currentModel]);
-
-
+    dotsContainerElem.append(...dots[currentModel]);
 }
 
 
 
 function currentSlide(n) {
-    showSlides(slideIndex = n, slides[currentModel]);
+    showSlides(slideIndex = n, slides[currentModel], dots[currentModel]);
 }
 
-function showSlides(n, model) {
-    // debugger
+function showSlides(n, model, dots) {
     if (n > model.length) {
         slideIndex = 1
     }
@@ -95,6 +96,7 @@ function showSlides(n, model) {
     model[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
 }
+
 showDifferentModel(currentModel)
 
 
@@ -106,10 +108,7 @@ function minusSlide() {
     showDifferentModel(currentModel -= 1);
 }
 
-// function plusSlide() {
-//     showSlides(slideIndex += 1);
-// }
-
-// function minusSlide() {
-//     showSlides(slideIndex -= 1);
-// }
+const prevBtnElem = document.querySelector('.prev');
+const nextBtnElem = document.querySelector('.next');
+prevBtnElem.addEventListener('click', minusSlide);
+nextBtnElem.addEventListener('click', plusSlide);
