@@ -55,7 +55,6 @@ h6 {
 }
 .page {
     height: 100vh;
-    max-width: 700px;
     margin: 0 auto;
     background-image: url(images/P_bg.jpg);
     background-position: center;
