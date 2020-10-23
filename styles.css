@@ -40,7 +40,7 @@ h6 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(238, 61, 110);
+    background-color: rgb(228, 202, 227);
 }
 .loading-page .arrow{
     display: block;
@@ -210,17 +210,15 @@ h6 {
     text-align: center;
     opacity: 0;
     animation-name: emerging;
-    animation-duration: 0.2s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
     -webkit-animation-name: emerging;
-    -webkit-animation-duration: 0.2s;
+    -webkit-animation-duration: 1s;
     -webkit-animation-fill-mode: forwards;
 }
 
 .model__item img {
-    object-fit: cover;
-    width: 85%;
-    height: 300px;
+    width: 80%;
 }
 
 .slider .prev,
@@ -428,15 +426,32 @@ h6 {
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .logo img {
     max-width: 80%;
 }
 
-/* @media screen and (orientation: portrait) {
-    
-} */
+@media screen and (max-height: 620px) {
+    .content__title{
+        margin-top: 0;
+    }
+    .model__item img {
+        width: 57%;
+    }
+}
+@media screen and (min-height: 800px) {
+    .content__title{
+        margin-top: 0;
+    }
+    .model__item img {
+        width: 100%;
+    }
+}
+
 
 @media screen and (orientation: landscape) {
     .not-available-page{
