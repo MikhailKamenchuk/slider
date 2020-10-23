@@ -149,11 +149,23 @@ nextBtnElem.addEventListener('click', plusSlide);
 
 const previewElem = document.querySelector('.preview');
 const sliderElem = document.querySelector('.slider');
+const mainPage = document.querySelector('.page');
+const loadingPage = document.querySelector('.loading-page');
+
 
 const loadPage = async () => {
+    mainPage.style.display = 'none';
+    loadingPage.style.display = 'flex';
+    
+    await new Promise((resolve) => setTimeout(() => resolve(), 1000))
+    
+    mainPage.style.display = 'flex';
+    loadingPage.style.display = 'none';
     previewElem.style.display = 'flex';
     sliderElem.style.display = 'none';
+    
     await new Promise((resolve) => setTimeout(() => resolve(), 3500))
+    
     previewElem.style.display = 'none';
     sliderElem.style.display = 'flex';
 }
